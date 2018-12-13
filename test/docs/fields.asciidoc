@@ -1,0 +1,536 @@
+= Layout test for field reference docs
+
+include::../../libbeat/docs/version.asciidoc[]
+
+include::{asciidoc-dir}/../../shared/attributes.asciidoc[]
+
+:version: {stack-version}
+:beatname_lc: metricbeat
+:beatname_uc: Metricbeat
+:beatname_pkg: {beatname_lc}
+:github_repo_name: beats
+:discuss_forum: beats/{beatname_lc}
+:beat_default_index_prefix: {beatname_lc}
+:has_ml_jobs: yes
+:has_central_config:
+:deb_os:
+:rpm_os:
+:mac_os:
+:linux_os:
+:docker_platform:
+:win_os:
+
+include::../../libbeat/docs/shared-beats-attributes.asciidoc[]
+
+[[exported-fields]]
+= Exported fields
+
+[partintro]
+
+--
+IMPORTANT: This document is a mockup. Consider the field descriptions here to be
+lorem ipsum. They are a mix of Filebeat and Metricbeat fields and would not
+appear together in a document.
+
+This document describes the fields that are exported by blah blah blah. They are
+grouped into the following categories:
+
+[horizontal]
+<<exported-fields-apache>>:: Apache HTTPD server metrics collected from an
+Apache web server. 
+<<exported-fields-apache2>>:: Log data collected from an Apache HTTP server.
+<<exported-fields-beat>>:: Common beat fields available in all event types.
+<<exported-fields-nginx>>:: Server status metrics collected from an Nginx server.
+
+--
+
+[[exported-fields-apache]]
+== Apache fields
+
+These fields contain Apache HTTPD server metrics collected from an Apache web
+server. 
+
+[float]
+=== Status
+
+These fields are scraped from the Apache status page. They are collected by the
+`status` metricset in the `apache` module.
+
+[options="header"]
+|===
+| Field | Description | Type
+
+
+| `apache.status.hostname`
+| Apache hostname.
+| keyword
+
+| `apache.status.total_accesses`
+| Total number of access requests.
+| long
+
+| `apache.status.total_kbytes`
+| Total number of kilobytes served.
+| long
+
+| `apache.status.requests_per_sec`
+| Requests per second.
+| scaled_float
+
+| `apache.status.bytes_per_sec`
+| Bytes per second.
+| scaled_float
+
+| `apache.status.bytes_per_request`
+| Bytes per request.
+| scaled_float
+
+| `apache.status.workers.busy`
+| Number of busy workers.
+| long
+
+| `apache.status.workers.idle`
+| Number of idle workers.
+| long
+|===
+
+
+[float]
+=== Uptime
+
+These fields contain uptime stats. They are collected by the
+`status` metricset in the `apache` module.
+
+[options="header"]
+|===
+| Field | Description | Type
+
+| `apache.status.uptime.server_uptime`
+| Server uptime in seconds.
+| long
+
+| `apache.status.uptime.uptime`
+| Server uptime.
+| long
+|===
+
+[float]
+=== CPU
+
+These fields contain CPU stats. They are collected by the
+`status` metricset in the `apache` module.
+
+[options="header"]
+|===
+| Field | Description | Type
+
+| `apache.status.cpu.load`
+| CPU Load.
+| scaled_float
+
+| `apache.status.cpu.user`
+| CPU user load.
+| scaled_float
+
+| `apache.status.cpu.system`
+| System cpu.
+| scaled_float
+
+| `apache.status.cpu.children_user`
+| CPU of children user.
+| scaled_float
+
+| `apache.status.cpu.children_system`
+| CPU of children system.
+| scaled_float
+|===
+
+[float]
+=== Connections
+
+These fields contain connection stats. They are collected by the
+`status` metricset in the `apache` module.
+
+[options="header"]
+|===
+| Field | Description | Type
+
+| `apache.status.connections.total`
+| Total connections.
+| long
+
+| `apache.status.connections.async.writing`
+| Async connection writing.
+| long
+
+| `apache.status.connections.async.keep_alive`
+| Async keeped alive connections.
+| long
+
+| `apache.status.connections.async.closing`
+| Async closed connections.
+| long
+|===
+
+[float]
+=== Load
+
+These fields contain load averages. They are collected by the
+`status` metricset in the `apache` module.
+
+[options="header"]
+|===
+| Field | Description | Type
+
+| `apache.status.load.1`
+| Load average for the last minute.
+| scaled_float
+
+| `apache.status.load.5`
+| Load average for the last 5 minutes.
+| scaled_float
+
+| `apache.status.load.15`
+| Load average for the last 15 minutes.
+| scaled_float
+|===
+
+[float]
+=== Scoreboard
+
+These fields contain scoreboard metrics. They are collected by the
+`status` metricset in the `apache` module.
+
+[options="header"]
+|===
+| Field | Description | Type
+
+| `apache.status.scoreboard.starting_up`
+| Starting up.
+| long
+
+| `apache.status.scoreboard.reading_request`
+| Reading requests.
+| long
+
+| `apache.status.scoreboard.sending_reply`
+| Sending Reply.
+| long
+
+| `apache.status.scoreboard.keepalive`
+| Keep alive.
+| long
+
+| `apache.status.scoreboard.dns_lookup`
+| Dns Lookups.
+| long
+
+| `apache.status.scoreboard.closing_connection`
+| Closing connections.
+| long
+
+| `apache.status.scoreboard.logging`
+| Logging
+| long
+
+| `apache.status.scoreboard.gracefully_finishing`
+| Gracefully finishing.
+| long
+
+| `apache.status.scoreboard.idle_cleanup`
+| Idle cleanups.
+| long
+
+| `apache.status.scoreboard.open_slot`
+| Open slots.
+| long
+
+| `apache.status.scoreboard.waiting_for_connection`
+| Waiting for connections.
+| long
+
+| `apache.status.scoreboard.total`
+| Total.
+| long
+|===
+
+[[exported-fields-apache2]]
+== Apache2 fields
+
+These fields contain log data collected from an Apache HTTP server. 
+
+[float]
+=== Access
+
+These fields are collected from Apache2 HTTPD access logs. They are
+collected by the `access` fileset in the `apache2` module.
+
+[options="header"]
+|===
+| Field | Description | Type
+
+| `apache2.access.remote_ip`
+| Client IP address or hostname.
+| keyword
+
+| `apache2.access.body_sent.bytes`
+| The number of bytes of the server response body.
+
+format: bytes
+| long
+
+| `apache2.access.user_name`
+| Description for this should come from ECS.
+
+alias to: `user.name`
+| alias
+
+| `apache2.access.method`
+| Description for this should come from ECS.
+
+alias to: `http.request.method`
+| alias
+
+| `apache2.access.url`
+| Description for this should come from ECS.
+
+alias to: `url.original`
+| alias
+
+| `apache2.access.http_version`
+| Description for this should come from ECS.
+
+alias to: `http.version`
+| alias
+
+| `apache2.access.response_code`
+| Description for this should come from ECS.
+
+alias to: `http.response.status_code`
+| alias
+
+| `apache2.access.referrer`
+| Description for this should come from ECS.
+
+alias to: `http.request.referrer`
+| alias
+
+
+| `apache2.access.agent`
+| Description for this should come from ECS.
+
+alias to: `user_agent.original`
+| alias
+
+| `apache2.access.user_agent.device`
+| Description for this should come from ECS.
+
+alias to: `user_agent.device`
+| alias
+
+| `apache2.access.user_agent.major`
+| Description for this should come from ECS.
+
+alias to: `user_agent.major`
+| alias
+
+| `apache2.access.user_agent.os_major`
+| Description for this should come from ECS.
+
+alias to: `user_agent.os.major`
+| alias
+
+| `apache2.access.user_agent.os_minor`
+| Description for this should come from ECS.
+
+alias to: `user_agent.os.minor`
+| alias
+
+| `apache2.access.user_agent.os_name`
+| Description for this should come from ECS.
+
+alias to: `user_agent.os.name`
+| alias
+
+| `apache2.access.user_agent.original`
+| Description for this should come from ECS.
+
+alias to: `user_agent.original`
+| alias
+
+| `apache2.access.geoip.continent_name`
+| Description for this should come from ECS.
+
+alias to: `source.geo.continent_name`
+| alias
+
+| `apache2.access.geoip.country_iso_code`
+| Description for this should come from ECS.
+
+alias to: `source.geo.country_iso_code`
+| alias
+
+| `apache2.access.geoip.location`
+| Description for this should come from ECS.
+
+alias to: `source.geo.location`
+| alias
+
+| `apache2.access.geoip.region_name`
+| Description for this should come from ECS.
+
+alias to: `source.geo.region_name`
+| alias
+
+| `apache2.access.geoip.city_name`
+| Description for this should come from ECS.
+
+alias to: `source.geo.city_name`
+| alias
+
+| `apache2.access.geoip.region_iso_code`
+| Description for this should come from ECS.
+
+alias to: `source.geo.region_iso_code`
+| alias
+|===
+
+[float]
+=== Error
+
+These fields are collected from Apache error logs. They are
+collected by the `error` fileset in the `apache2` module.
+
+[options="header"]
+|===
+| Field | Description | Type
+
+| `apache2.error.level`
+| The severity level of the message.
+| keyword
+
+| `apache2.error.client`
+| The IP address of the client that generated the error.
+| keyword
+
+| `apache2.error.message`
+| The logged message.
+| text
+
+
+| `apache2.error.pid`
+| The process ID.
+| long
+
+| `apache2.error.tid`
+| The thread ID.
+| long
+
+| `apache2.error.module`
+| The module producing the logged message.
+| keyword
+|===
+
+[[exported-fields-beat]]
+== Beat fields
+
+These fields are available in all event types. 
+
+[options="header"]
+|===
+| Field | Description | Type
+
+| `beat.timezone`
+| The timezone as returned by the operating system on which the Beat is running.
+| 
+
+| `@timestamp`
+| The timestamp when the event log record was generated.
+
+Example: `August 26th 2016, 12:35:53.332`
+
+Format: date
+
+Required: true
+| date
+
+| `tags`
+| Arbitrary tags that can be set per Beat and per transaction type.
+| 
+
+| `fields`
+| Contains user configurable fields.
+| object
+|===
+
+[float]
+=== Error fields
+
+These fields contain error information. They are added when the Beat
+encounters an error.
+
+[options="header"]
+|===
+| Field | Description | Type
+
+| `error.type`
+| Error type.
+| keyword
+|===
+
+[[exported-fields-nginx]]
+== Nginx fields
+
+These fields contain server status metrics collected from an Nginx server.
+
+[float]
+=== Stubstatus
+
+These fields are scraped from the ngx_http_stub_status_module status page. They
+are collected by the `stubstatus` metricset in the `nginx` module.
+
+[options="header"]
+|===
+| Field | Description | Type
+
+| `nginx.stubstatus.hostname`
+| The Nginx hostname.
+| keyword
+
+| `nginx.stubstatus.active`
+| The current number of active client connections including Waiting connections.
+| long
+
+| `nginx.stubstatus.accepts`
+| The total number of accepted client connections.
+| long
+
+| `nginx.stubstatus.handled`
+| The total number of handled client connections.
+| long
+
+| `nginx.stubstatus.dropped`
+| The total number of dropped client connections.
+| long
+
+| `nginx.stubstatus.requests`
+| The total number of client requests.
+| long
+
+| `nginx.stubstatus.current`
+| The current number of client requests.
+| long
+
+| `nginx.stubstatus.reading`
+| The current number of connections where Nginx is reading the request header.
+| long
+
+| `nginx.stubstatus.writing`
+| The current number of connections where Nginx is writing the response back to the client.
+| long
+
+| `nginx.stubstatus.waiting`
+| The current number of idle client connections waiting for a request.
+| long
+
+|===
